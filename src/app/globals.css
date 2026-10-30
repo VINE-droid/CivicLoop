@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* ── Design tokens ─────────────────────────────────────── */
+:root {
+  --bg:             #FFFFFF;
+  --surface:        #F0FDF6;
+  --surface-2:      #E3F7EC;
+  --border:         #D1E7DC;
+  --text:           #0F1F18;
+  --text-muted:     #4B6359;
+  --primary:        #059669;
+  --primary-strong: #047857;
+  --on-primary:     #FFFFFF;
+
+  /* Priority (reserved — do not use for decoration) */
+  --priority-critical: #DC2626;
+  --priority-high:     #EA580C;
+  --priority-medium:   #D97706;
+  --priority-low:      #16A34A;
+}
+
+.dark {
+  --bg:             #0B1512;
+  --surface:        #12201B;
+  --surface-2:      #1A2C25;
+  --border:         #274036;
+  --text:           #E8F5EE;
+  --text-muted:     #9BB5A9;
+  --primary:        #34D399;
+  --primary-strong: #10B981;
+  --on-primary:     #05261B;
+
+  /* Priority dark tints */
+  --priority-critical: #F87171;
+  --priority-high:     #FB923C;
+  --priority-medium:   #FBBF24;
+  --priority-low:      #4ADE80;
+}
+
+/* ── Tailwind v4 theme wiring ───────────────────────────── */
+@theme inline {
+  --color-bg:             var(--bg);
+  --color-surface:        var(--surface);
+  --color-surface-2:      var(--surface-2);
+  --color-border:         var(--border);
+  --color-text:           var(--text);
+  --color-text-muted:     var(--text-muted);
+  --color-primary:        var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-on-primary:     var(--on-primary);
+  --color-priority-critical: var(--priority-critical);
+  --color-priority-high:     var(--priority-high);
+  --color-priority-medium:   var(--priority-medium);
+  --color-priority-low:      var(--priority-low);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 12px;
+  --radius-chip: 999px;
+}
+
+/* ── Base styles ────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100dvh;
+  /* prevent horizontal scroll at 375px */
+  overflow-x: hidden;
+}
+
+/* Smooth transitions for theme switch, respect reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+  body,
+  .theme-transition {
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  }
+}
+
+/* Safe-area bottom padding for notched phones */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Skeleton animation */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface) 25%,
+    var(--surface-2) 50%,
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
